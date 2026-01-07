@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lailla:: Gere o Prompt de seu Agente IA</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons-->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /*Tailwind */
+        .animate-spin-custom { animation: spin 1s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        [hidden] { display: none !important; }
+        :root{
+            --lailla-primary: #9900FC;
+            --lailla-primary-50: rgba(106,13,173,0.06);
+            --lailla-primary-200: rgba(106,13,173,0.15);
+            --lailla-shadow: 0 4px 10px rgba(106,13,173,0.2);
+        }
+
+        .bg-indigo-600 { background-color: var(--lailla-primary) !important; }
+        .bg-indigo-50 { background-color: var(--lailla-primary-50) !important; }
+        .text-indigo-600, .text-indigo-500, .text-indigo-900 { color: var(--lailla-primary) !important; }
+        .border-indigo-200 { border-color: var(--lailla-primary-200) !important; }
+        .border-indigo-50 { border-color: var(--lailla-primary-50) !important; }
+        .border-t-indigo-600 { border-top-color: var(--lailla-primary) !important; }
+        .shadow-indigo-200 { box-shadow: var(--lailla-shadow) !important; }
+        .hover\:bg-indigo-600:hover { background-color: var(--lailla-primary) !important; color: white !important; }
+        .hover\:text-indigo-800:hover { color: var(--lailla-primary) !important; }
+        .text-lailla { color: var(--lailla-primary) !important}
+    </style>
+</head>
+<body class="min-h-screen bg-[#F8FAFC] text-[#1E293B] font-sans pb-20">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden shadow-lg shadow-indigo-200">
+    <img src="https://media.licdn.com/dms/image/v2/D4E0BAQELMAVUcLMJrQ/company-logo_200_200/company-logo_200_200/0/1716416874578/lailla_logo?e=2147483647&v=beta&t=Mci558rOfR1wfoI9YMv0jaE0b3O-pk1iILuKGMj-FNs" alt="Logo Lailla" class="w-full h-full object-cover">
+</div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight text-slate-800">
+                        Prompts <span class="text-indigo-600">Lailla</span>
+                    </h1>
+                    <p class="text-[10px] uppercase tracking-widest font-bold text-slate-400">Da conversa à conversão</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            
+            <!-- Coluna de Entrada -->
+            <div class="lg:col-span-4 space-y-6">
+                <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-200/60">
+                    <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+                        <i data-lucide="layout" class="text-indigo-500 w-5 h-5"></i>
+                        Dados do Agente
+                    </h2>
+                    
+                    <div class="space-y-5">
+                        <!-- Input Nome Agente -->
+                        <div class="group">
+                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 ml-1">Nome do Agente</label>
+                            <div class="relative">
+                                <i data-lucide="user" class="absolute left-4 top-1/2 -translate-y-1/2 text-lailla group-focus-within:text-indigo-500 transition-colors w-5 h-5"></i>
+                                <input id="nome_agente" type="text" placeholder="Ex: Deck" class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all">
+                            </div>
+                        </div>
+
+                        <!-- Input Empresa -->
+                        <div class="group">
+                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 ml-1">Nome da Empresa</label>
+                            <div class="relative">
+                                <i data-lucide="building-2" class="absolute left-4 top-1/2 -translate-y-1/2 text-lailla group-focus-within:text-indigo-500 transition-colors w-5 h-5"></i>
+                                <input id="nome_empresa" type="text" placeholder="Ex: Deck Companies" class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all">
+                            </div>
+                        </div>
+
+                        <!-- Textarea Segmento -->
+                        <div class="group">
+                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 ml-1">Segmento</label>
+                            <div class="relative">
+                                <i data-lucide="message-square" class="absolute left-4 top-4 text-lailla group-focus-within:text-indigo-500 transition-colors w-5 h-5"></i>
+                                <textarea id="segmento_empresa" rows="3" placeholder="Ex:  Tecnologia..." class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all resize-none"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Seleção de Tópicos -->
+                        <div class="pt-4 border-t border-slate-100">
+                            <div class="flex items-center justify-between mb-4">
+                                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+                                    <i data-lucide="settings-2" class="text-indigo-500 w-4 h-4"></i>
+                                    Campos para Gerar
+                                </label>
+                                <button id="btnToggleAll" class="text-[10px] font-bold text-indigo-600 hover:text-indigo-800 transition-colors bg-indigo-50 px-2 py-1 rounded">Desmarcar Todos</button>
+                            </div>
+                            
+                            <div id="topicsContainer" class="space-y-2">
+                                <!-- Os tópicos serão gerados via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="errorMessage" class="hidden mt-6 p-4 bg-red-50 text-red-600 rounded-2xl flex items-center gap-3 text-sm font-medium">
+                        <i data-lucide="alert-circle" class="w-5 h-5"></i>
+                        <span id="errorText"></span>
+                    </div>
+
+                    <button id="btnGenerate" 
+            class="w-full mt-8 text-white font-bold py-4 rounded-2xl transition-all 
+         flex items-center justify-center gap-3 active:scale-[0.98]"
+  style="background-color:var(--lailla-primary); box-shadow:0 4px 10px rgba(106,13,173,0.3);">
+  <span id="btnText">Gerar Prompt</span>
+  <i data-lucide="chevron-right" id="btnIcon" class="w-5 h-5"></i>
+</button>
+
+                </div>
+            </div>
+
+            <!-- Coluna de Resultado -->
+            <div id="resultColumn" class="lg:col-span-8 space-y-6">
+                <!-- Estado Inicial: Vazio -->
+                <div id="emptyState" class="h-[600px] bg-white rounded-[2rem] border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-400 p-12 text-center">
+                    <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-6">
+                        <i data-lucide="layout" class="w-10 h-10" stroke-width="1"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-700">Pronto para começar</h3>
+                    <p class="max-w-xs mt-2 leading-relaxed">Escolha os campos desejados e clique em gerar.</p>
+                </div>
+
+                <!-- Estado de Loading -->
+                <div id="loadingState" class="hidden h-[600px] bg-white rounded-[2rem] border border-slate-200 flex flex-col items-center justify-center space-y-6">
+                    <div class="relative">
+                        <div class="w-16 h-16 border-4 border-indigo-50 border-t-indigo-600 rounded-full animate-spin-custom"></div>
+                        <i data-lucide="sparkles" class="absolute inset-0 m-auto text-indigo-600 animate-pulse w-6 h-6"></i>
+                    </div>
+                    <div class="text-center px-6">
+                        <p class="font-bold text-slate-800 text-lg">Personalizando seu Agente</p>
+                        <p class="text-slate-500">Criando apenas os campos que você selecionou...</p>
+                    </div>
+                </div>
+
+                <!-- Lista de Resultados (Injetada via JS) -->
+                <div id="resultsList" class="hidden space-y-6">
+                    <div class="flex items-center justify-between mb-2 px-2">
+                        <h3 class="font-bold text-slate-800 flex items-center gap-2">
+                            <i data-lucide="check" class="text-green-500 w-5 h-5"></i> 
+                            Prompt gerado com sucesso
+                        </h3>
+                        <span id="blocksCount" class="text-xs font-bold text-slate-400 uppercase tracking-tighter">0 blocos gerados</span>
+                    </div>
+                    <div id="sectionsContainer" class="space-y-6"></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // --- CONFIGURAÇÃO E ESTADO ---
+        const availableTopics = [
+            "Identidade",
+            "Diretrizes de comunicação",
+            "Objetivo",
+            "Instruções de atendimento",
+            "Restrições"
+        ];
+        let selectedTopics = [...availableTopics];
+        // Cor primária usada no botão e checkboxes
+        const primaryColor = '#6A0DAD';
+        const primaryColorLight = 'rgba(106,13,173,0.06)';
+        const primaryBorder = 'rgba(106,13,173,0.15)';
+
+        // --- REFERÊNCIAS DO DOM ---
+        const topicsContainer = document.getElementById('topicsContainer');
+        const btnToggleAll = document.getElementById('btnToggleAll');
+        const btnGenerate = document.getElementById('btnGenerate');
+        const btnText = document.getElementById('btnText');
+        const btnIcon = document.getElementById('btnIcon');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+        const emptyState = document.getElementById('emptyState');
+        const loadingState = document.getElementById('loadingState');
+        const resultsList = document.getElementById('resultsList');
+        const sectionsContainer = document.getElementById('sectionsContainer');
+        const blocksCount = document.getElementById('blocksCount');
+
+        const inputNome = document.getElementById('nome_agente');
+        const inputEmpresa = document.getElementById('nome_empresa');
+        const inputSegmento = document.getElementById('segmento_empresa');
+
+        // --- INICIALIZAÇÃO ---
+        function init() {
+            renderTopicCheckboxes();
+            lucide.createIcons(); // Ativa os ícones iniciais
+        }
+
+        // --- FUNÇÕES DE INTERFACE ---
+        function renderTopicCheckboxes() {
+            topicsContainer.innerHTML = '';
+            availableTopics.forEach(topic => {
+                const isSelected = selectedTopics.includes(topic);
+                const label = document.createElement('label');
+                label.className = `flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
+                    isSelected ? 'shadow-sm' : 'bg-white hover:border-slate-300'
+                }`;
+
+                const squareBg = isSelected ? primaryColor : '#E6E6E9';
+                const squareColor = isSelected ? '#ffffff' : '#94a3b8';
+
+                label.innerHTML = `
+                    <div class="w-5 h-5 rounded-md flex items-center justify-center transition-all" style="background-color: ${squareBg}; color: ${squareColor}">
+                        ${isSelected ? '<i data-lucide="check" class="w-3 h-3" style="stroke-width: 4px"></i>' : ''}
+                    </div>
+                    <span class="text-xs font-bold">${topic}</span>
+                `;
+
+                // Estilos inline para o estado selecionado (reaproveita a cor do botão)
+                if (isSelected) {
+                    label.style.backgroundColor = primaryColorLight;
+                    label.style.borderColor = primaryBorder;
+                    label.style.color = primaryColor;
+                } else {
+                    label.style.backgroundColor = '';
+                    label.style.borderColor = '';
+                    label.style.color = '';
+                }
+
+                label.onclick = () => toggleTopic(topic);
+                topicsContainer.appendChild(label);
+            });
+            lucide.createIcons();
+            
+            btnToggleAll.innerText = selectedTopics.length === availableTopics.length ? 'Desmarcar Todos' : 'Selecionar Todos';
+        }
+
+        function toggleTopic(topic) {
+            if (selectedTopics.includes(topic)) {
+                selectedTopics = selectedTopics.filter(t => t !== topic);
+            } else {
+                selectedTopics.push(topic);
+            }
+            renderTopicCheckboxes();
+        }
+
+        btnToggleAll.onclick = () => {
+            if (selectedTopics.length === availableTopics.length) {
+                selectedTopics = [];
+            } else {
+                selectedTopics = [...availableTopics];
+            }
+            renderTopicCheckboxes();
+        };
+
+        // --- LÓGICA DE GERAÇÃO ---
+        async function generate() {
+            const nome = inputNome.value.trim();
+            const empresa = inputEmpresa.value.trim();
+            const segmento = inputSegmento.value.trim();
+
+            if (!nome || !empresa || !segmento) {
+                showError("Preencha os campos de identificação.");
+                return;
+            }
+            if (selectedTopics.length === 0) {
+                showError("Selecione pelo menos um campo para gerar.");
+                return;
+            }
+
+            setLoading(true);
+
+            const systemPrompt = `Você é um especialista em criação de configurações para agentes Lailla no WhatsApp.
+Sua tarefa é gerar APENAS os seguintes tópicos solicitados pelo usuário: ${selectedTopics.join(", ")}.
+
+Regras Obrigatórias por campo:
+- Identidade: Responde apenas QUEM o agente é. Máximo 2 frases. Parágrafo único. Sem listas.
+- Diretrizes de comunicação: Lista de orientações sobre tom, estilo e emojis.
+- Objetivo: Explica o que o agente deve fazer. Um único parágrafo.
+- Instruções de atendimento: Como conduzir o atendimento em listas organizadas.
+- Restrições: O que o agente não deve fazer (Não revelar IA, não inventar dados).
+
+FORMATO DE SAÍDA:
+Gere os tópicos exatamente nesta ordem, precedidos pelo nome do tópico sem caracteres especiais.
+${selectedTopics.join("\n")}
+
+Não inclua saudações ou textos fora desses tópicos.`;
+
+            const userQuery = `Gere as configurações para:\nNome do Agente: ${nome}\nNome da Empresa: ${empresa}\nSegmento: ${segmento}`;
+
+            try {
+                const response = await fetchWithRetry(userQuery, systemPrompt);
+                const parsedData = parseResponse(response);
+                renderResults(parsedData);
+            } catch (err) {
+                showError("Erro ao gerar conteúdo. Tente novamente.");
+            } finally {
+                setLoading(false);
+            }
+        }
+    async function fetchWithRetry(query, system) {
+        // Note que agora não passamos a chave aqui!
+        const res = await fetch('/api/gerar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query, system })
+        });
+
+        if (!res.ok) throw new Error("Erro na resposta do servidor");
+    
+        const data = await res.json();
+        return data.choices?.[0]?.message?.content || "";
+}
+
+        function parseResponse(text) {
+            const result = {};
+            selectedTopics.forEach(currentTitle => {
+                const startIdx = text.indexOf(currentTitle);
+                if (startIdx === -1) return;
+
+                const contentStart = startIdx + currentTitle.length;
+                let minNextIdx = text.length;
+
+                selectedTopics.forEach(otherTitle => {
+                    const otherIdx = text.indexOf(otherTitle);
+                    if (otherIdx > startIdx && otherIdx < minNextIdx) {
+                        minNextIdx = otherIdx;
+                    }
+                });
+
+                let content = text.substring(contentStart, minNextIdx).trim();
+                content = content.replace(/^[:\-\s\=]+/, '');
+                result[currentTitle] = content;
+            });
+            return result;
+        }
+
+        function renderResults(data) {
+            sectionsContainer.innerHTML = '';
+            const entries = Object.entries(data);
+            blocksCount.innerText = `${entries.length} blocos gerados`;
+
+            availableTopics.forEach((title, index) => {
+                if (!data[title]) return;
+
+                const div = document.createElement('div');
+                div.className = "bg-white rounded-3xl border border-slate-200/70 shadow-sm hover:shadow-md transition-all overflow-hidden group animate-in fade-in slide-in-from-bottom-2 duration-300";
+                
+                div.innerHTML = `
+                    <div class="px-6 py-4 bg-slate-50/50 border-b border-slate-100 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 h-6 bg-white border border-slate-200 rounded-md flex items-center justify-center text-[10px] font-bold text-slate-400">
+                                ${String(index + 1).padStart(2, '0')}
+                            </span>
+                            <h4 class="font-bold text-slate-700 text-sm tracking-tight">${title}</h4>
+                        </div>
+                        <button onclick="copyToClipboard('${title}', this)" class="btn-copy flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white border border-slate-200 text-slate-600 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 active:scale-95">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                            <span>Copiar Texto</span>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <div class="bg-slate-50/50 rounded-2xl p-5 border border-slate-100/50">
+                            <p id="content-${title}" class="text-slate-600 text-sm leading-relaxed whitespace-pre-wrap font-medium">${data[title]}</p>
+                        </div>
+                    </div>
+                `;
+                sectionsContainer.appendChild(div);
+            });
+            lucide.createIcons();
+            
+            emptyState.classList.add('hidden');
+            loadingState.classList.add('hidden');
+            resultsList.classList.remove('hidden');
+        }
+
+        function copyToClipboard(title, btn) {
+            const text = document.getElementById(`content-${title}`).innerText;
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5"></i><span>Copiado!</span>`;
+            btn.classList.replace('text-slate-600', 'text-white');
+            btn.classList.add('bg-green-500', 'border-green-500');
+            lucide.createIcons();
+
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.classList.replace('text-white', 'text-slate-600');
+                btn.classList.remove('bg-green-500', 'border-green-500');
+                lucide.createIcons();
+            }, 2000);
+        }
+
+        // --- AUXILIARES ---
+        function setLoading(isLoading) {
+            errorMessage.classList.add('hidden');
+            btnGenerate.disabled = isLoading;
+            if (isLoading) {
+                btnText.innerText = "Gerando Selecionados...";
+                emptyState.classList.add('hidden');
+                resultsList.classList.add('hidden');
+                loadingState.classList.remove('hidden');
+            } else {
+                btnText.innerText = "Gerar prompt";
+            }
+        }
+
+        function showError(msg) {
+            errorText.innerText = msg;
+            errorMessage.classList.remove('hidden');
+            window.scrollTo({ top: errorMessage.offsetTop - 100, behavior: 'smooth' });
+        }
+
+        btnGenerate.onclick = generate;
+
+        // Inicia o app
+        init();
+    </script>
+</body>
+</html>
