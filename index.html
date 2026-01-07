@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lailla:: Gere o Prompt de seu Agente IA</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons-->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         /*Tailwind */
@@ -145,7 +143,7 @@
                     </div>
                 </div>
 
-                <!-- Lista de Resultados (Injetada via JS) -->
+                <!-- Lista de Resultados Injetada via JS -->
                 <div id="resultsList" class="hidden space-y-6">
                     <div class="flex items-center justify-between mb-2 px-2">
                         <h3 class="font-bold text-slate-800 flex items-center gap-2">
@@ -197,7 +195,7 @@
         // --- INICIALIZAÇÃO ---
         function init() {
             renderTopicCheckboxes();
-            lucide.createIcons(); // Ativa os ícones iniciais
+            lucide.createIcons(); // para ativar os ícones iniciais
         }
 
         // --- FUNÇÕES DE INTERFACE ---
@@ -303,7 +301,6 @@ Não inclua saudações ou textos fora desses tópicos.`;
             }
         }
     async function fetchWithRetry(query, system) {
-        // Note que agora não passamos a chave aqui!
         const res = await fetch('/api/gerar', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -423,8 +420,9 @@ Não inclua saudações ou textos fora desses tópicos.`;
 
         btnGenerate.onclick = generate;
 
-        // Inicia o app
+        
         init();
     </script>
 </body>
+
 </html>
