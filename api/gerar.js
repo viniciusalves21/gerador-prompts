@@ -5,7 +5,6 @@ export default async function handler(req, res) {
     }
 
     const { query, system } = req.body;
-    // A chave não fica aqui, ela fica nas configurações da Vercel
     const apiKey = process.env.OPENAI_API_KEY;
 
     try {
@@ -30,4 +29,5 @@ export default async function handler(req, res) {
     } catch (error) {
         res.status(500).json({ error: 'Erro ao chamar a API' });
     }
+
 }
